@@ -1,0 +1,47 @@
+<script type="text/javascript">
+
+    $(function(){
+        <%= button_fnc(:obj=>'#btn_novo', :icon=>'ui-icon-plus', :text => true) %>
+        <%= button_fnc(:obj=>'.btn_edit', :icon=>'ui-icon-pencil', :text=>false); %>
+        <%= button_fnc(:obj=>'.btn_delete', :icon=>'ui-icon-trash', :text=>false); %>
+        <%= grid_fnc %>
+    });
+
+</script>
+
+<%= box do %>
+    <%= button(:label => 'Novo Projeto',  :href => url_for(:action => 'form'), :id => 'btn_novo')%>
+<% end %>
+
+<%= confirm(:id => 'dialog', :msg => 'Deseja realmente apagar este registro?') %>
+
+<%= grid(:titulo => 'Projetos', :rodape => "Foram encontrados um total de #{@projetos.size.to_s} projeto(s)") do %>
+
+    <table class="ui-grid-content ui-widget-content">
+        <thead>
+            <tr>
+                <th align="center" class="ui-state-default">&nbsp;</th>
+                <th align="left" class="ui-state-default">Nome</th>
+                <th align="left" class="ui-state-default">Descrição</th>
+                <th align="left" class="ui-state-default">Data Inicio</th>
+                <th align="left" class="ui-state-default">Data Fim</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% @projetos.each do |projeto| %>
+              <tr>
+                <td style="width:60px" class="ui-widget-content">
+                    <%= button({:label=>'Editar', :class => 'btn_edit', :href => url_for(:action => 'form',  :id => projeto.id) })%>
+                    <%= button({:label=>'Excluir', :class => 'btn_delete', :confirm => "Deseja ecluir o projeto" ,:href => url_for(:action => 'delete', :id => projeto.id) })%>
+                </td>
+                <td style="text-align: left" class="ui-widget-content"><%= link_to projeto.nome, {:action=>'view',:id => projeto.id} %></td>
+                <td style="text-align: left" class="ui-widget-content"><%= projeto.descricao  %></td>
+                <td style="text-align: left" class="ui-widget-content"> <%= projeto.data_inicio %></td>
+                <td style="text-align: left" class="ui-widget-content"><%= projeto.data_fim  %></td>
+              </tr>
+        <% end %>
+        </tbody>
+    </table>
+
+<% end %>
+

@@ -1,0 +1,58 @@
+<script type="text/javascript">
+
+    $(function(){
+        <%= tab_fnc(:tabs => 'tabs')%>
+        <%= button_fnc(:obj=>'#btn_voltar', :icon=>'ui-icon-arrowreturnthick-1-w', :text => true) %>
+        <%= button_fnc(:obj=>'.btn_salvar', :icon=>'ui-icon-disk', :text => true) %>
+        <%= date_fnc %>
+    });
+
+</script>
+
+<%= form_for(@projeto, :url => { :action => "save", :id => @projeto.id}) do |f| %>
+
+    <% if @projeto.errors.any? %>
+        <div id="msginfo" class="ui-widget">
+            <%= box_error(:message =>  "Verifique os erros.") %>
+        </div>
+    <% end %>
+
+    <%= box do %>
+        <%= button(:label => 'Voltar',  :href => url_for(:action => 'index'), :id => 'btn_voltar')%>
+    <% end %>
+
+    <%= tab(:name => 'tabs', :tabs => 'tabs-1', :labels => 'Informações de Projeto') do |t| %>
+
+        <div id="<%= t[0] %>">
+
+            <%= f.label :nome%> <%= f.text_field :nome , :style => 'width: 300px', :class=>'text ui-widget-content ui-corner-all'%>
+
+            <br/>
+
+            <%= f.label :descricao%> <%= f.text_field :descricao, :style => 'width: 300px', :class=>'text ui-widget-content ui-corner-all' %>
+
+            <br/>
+
+            <%= f.label :data_inicio %> <%= f.text_field :data_inicio, :class=>'datepicker text ui-widget-content ui-corner-all' %>
+
+            <br/>
+
+            <%= f.label :data_fim%> <%= f.text_field :data_fim ,:class=>'datepicker text ui-widget-content ui-corner-all'  %>
+
+            <br/>
+
+            <%= f.label :analistas%>
+
+            <%= list_check(:width => '300', :height => '200', :list=> @analistas) do |a| %>
+                  <%= item_check :name => "projeto[analista_ids][]", :id => a.id, :label => a.nome, :checked => @projeto.analistas.include?(a) %>
+            <% end %>
+
+            <br/>
+
+            <label></label>
+            <%= button(:label => 'Salvar', :class => 'btn_salvar', :type => 'submit')%>
+        </div>
+
+    <% end %>
+
+<% end %>

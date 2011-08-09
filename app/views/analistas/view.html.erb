@@ -1,0 +1,32 @@
+<script type="text/javascript">
+
+    $(function(){
+        <%= tab_fnc({:tabs => 'tabs'})%>
+        <%= button_fnc({:obj=>'#btn_voltar', :icon=>'ui-icon-arrowreturnthick-1-w', :text => true}) %>
+        <%= button_fnc({:obj=>'#btn_edit', :icon=>'ui-icon-pencil', :text => true}) %>
+    });
+
+</script>
+
+<%= box do %>
+    <%= button(:label => 'Voltar',  :href => url_for(:action => 'index'), :id => 'btn_voltar')%>
+    <%= button(:label => 'Editar',  :href => url_for(:action => 'form', :id => @analista.id), :id => 'btn_edit')%>
+<% end %>
+
+<%= tab(:name => 'tabs', :tabs => 'tabs-1', :labels => 'Analistas') do |t| %>
+
+    <div id="<%= t[0] %>">
+
+        <label for="Nome">Nome:</label> <div class="labelform"><%= @analista.nome %></div>
+
+        </br>
+
+        <label for="Nome">Especialidade:</label> <div class="labelform"><%= @analista.especialidade %></div>
+
+        </br>
+
+        <label for="Nome">Cargo:</label> <div class="labelform"><%= @analista.cargo.nome %></div>
+
+    </div>
+
+<% end %>

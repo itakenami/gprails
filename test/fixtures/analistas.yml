@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  nome: MyString
+  especialidade: MyString
+  cargo_id: 
+
+two:
+  nome: MyString
+  especialidade: MyString
+  cargo_id: 

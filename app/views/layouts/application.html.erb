@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GPRails 1.0</title>
+
+  <%= stylesheet_link_tag "main.css" %>
+
+  <%= javascript_include_tag 'jquery-1.4.2.min.js' %>
+
+  <link type="text/css" href="<%= javascript_path "jquery.ui/css/#{@tema}/jquery-ui-1.8.4.custom.css"%>" rel="stylesheet" />
+  <%= javascript_include_tag 'jquery.ui/js/jquery-ui-1.8.4.custom.min.js' %>
+
+  <link type="text/css" href="<%= javascript_path 'jquery.thememenu/ddsmoothmenu.css'  %>" rel="stylesheet" />
+  <%= javascript_include_tag 'jquery.thememenu/ddsmoothmenu.js' %>
+
+  <link type="text/css" href="<%= javascript_path 'jquery.alerts/jquery.alerts.css'  %>" rel="stylesheet" />
+  <%= javascript_include_tag 'jquery.alerts//jquery.alerts.js' %>
+
+  <%= stylesheet_link_tag "grid.css" %>
+
+  <%= csrf_meta_tag %>
+
+  <script type="text/javascript">
+
+      ddsmoothmenu.init({
+          mainmenuid: "smoothmenu1", //menu DIV id
+          orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+          classname: 'ddsmoothmenu', //class added to menu's outer DIV
+          //customtheme: ["#5c9ccc url(images/ui-bg_gloss-wave_55_5c9ccc_500x100.png) 50% 50% repeat-x", "#dfeffc url(images/ui-bg_glass_85_dfeffc_1x400.png) 50% 50% repeat-x"],
+          //customtheme: [$('#take').css('backgroundColor')+" "+$('#take').css('background-image')+" 50% 50% repeat-x", "#dfeffc url(images/ui-bg_glass_85_dfeffc_1x400.png) 50% 50% repeat-x"],
+          contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+      });
+  </script>
+
+</head>
+<body>
+
+<table cellspacing="0" cellspacing="0" width="100%">
+    <tr>
+        <td class="ui-state-default" style="height: 70px;"></td>
+    </tr>
+</table>
+
+        <div id="smoothmenu1">
+            <ul>
+
+                <li><a href="#">Cadastros</a>
+                    <ul class="ui-widget-header">
+                        <li class="ui-widget-header"><a href="<%=url_for(:action => 'index', :controller => 'cargos')%>">Cargos</a></li>
+                        <li class="ui-widget-header"><a href="<%=url_for(:action => 'index', :controller => 'analistas')%>">Analistas</a></li>
+                        <li class="ui-widget-header"><a href="<%=url_for(:action => 'index', :controller => 'projetos')%>">Projetos</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Temas</a>
+                    <ul class="ui-widget-header">
+                        <li class="ui-widget-header"><%= link_to('Redmond',   theme_url(:tema => 'redmond')) %> </li>
+                        <li class="ui-widget-header"><%= link_to('Ui-lightness',   theme_url(:tema => 'ui-lightness')) %></li>
+                        <li class="ui-widget-header"><%= link_to('Sunny',   theme_url(:tema => 'sunny')) %></li>
+                        <li class="ui-widget-header"><%= link_to('Le Frog',   theme_url(:tema => 'le-frog')) %> </li>
+                        <li class="ui-widget-header"><%= link_to('Blitzer',   theme_url(:tema => 'blitzer')) %></li>
+                    </ul>
+                </li>
+
+            </ul>
+            <br style="clear: left" />
+        </div>
+
+<div style="padding:8px">
+
+  <% if flash[:notice] %>
+
+    <script>
+        window.onload = function(){
+            setInterval("document.getElementById('msginfo').style.display='none'", 5000);
+        }
+    </script>
+
+    <div id="msginfo" class="ui-widget">
+        <%= box_sucess(:message => flash[:notice]) %>
+        <% flash[:notice] = nil %>
+    </div>
+
+  <% end %>
+
+  <% if flash[:error] %>
+
+    <div id="msginfo" class="ui-widget">
+        <%= box_error(:message => flash[:error]) %>
+        <% flash[:error] = nil %>
+    </div>
+
+  <% end %>
+
+  <%= yield %>
+
+</div>
+
+</body>
+</html>

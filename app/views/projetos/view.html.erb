@@ -1,0 +1,57 @@
+<script type="text/javascript">
+
+    $(function(){
+        <%= tab_fnc({:tabs => 'tabs'})%>
+        <%= button_fnc({:obj=>'#btn_voltar', :icon=>'ui-icon-arrowreturnthick-1-w', :text => true}) %>
+        <%= button_fnc({:obj=>'#btn_edit', :icon=>'ui-icon-pencil', :text => true}) %>
+    });
+
+</script>
+
+<%= box do %>
+    <%= button(:label => 'Voltar',  :href => url_for(:action => 'index'), :id => 'btn_voltar')%>
+    <%= button(:label => 'Editar',  :href => url_for(:action => 'form', :id => @projeto.id), :id => 'btn_edit')%>
+<% end %>
+
+<%= tab(:name => 'tabs', :tabs => 'tabs-1,tabs-2', :labels => 'Projetos,Analistas') do |t| %>
+
+    <div id="<%= t[0] %>">
+
+        <label for="Nome">Nome:</label> <div class="labelform"><%= @projeto.nome %></div>
+
+        </br>
+
+        <label for="Descricao">Descrição:</label> <div class="labelform"><%= @projeto.descricao %></div>
+
+        </br>
+
+        <label for="Descricao">Data inicio:</label> <div class="labelform"><%= @projeto.data_inicio%></div>
+
+        </br>
+
+        <label for="Descricao">Data fim:</label><div class="labelform"><%= @projeto.data_fim%></div>
+
+    </div>
+
+    <div id="<%= t[1] %>">
+        <%= grid do %>
+            <table class="ui-grid-content ui-widget-content">
+                <thead>
+                    <tr>
+                        <th align="left" class="ui-state-default">Analistas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <% @projeto.analistas.each do |a| %>
+                    <tr>
+                        <td style="width:300px;text-align: left" class="ui-widget-content">
+                            <%= a.nome %>
+                        </td>
+                    </tr>
+                <% end %>
+                </tbody>
+            </table>
+        <% end %>
+    </div>
+
+<% end %>

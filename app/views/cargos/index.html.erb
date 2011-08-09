@@ -1,0 +1,41 @@
+<script type="text/javascript">
+
+    $(function(){
+        <%= button_fnc(:obj=>'#btn_novo', :icon=>'ui-icon-plus', :text => true) %>
+        <%= button_fnc(:obj=>'.btn_edit', :icon=>'ui-icon-pencil', :text=>false); %>
+        <%= button_fnc(:obj=>'.btn_delete', :icon=>'ui-icon-trash', :text=>false); %>
+        <%= grid_fnc %>
+    });
+
+</script>
+
+<%= box do %>
+    <%= button(:label => 'Novo Cargo', :href => url_for(:action => 'form'), :id => 'btn_novo')%>
+<% end %>
+
+<%= confirm(:id => 'dialog', :msg => 'Deseja realmente apagar este registro?') %>
+
+<%= grid(:titulo => 'Cargos', :rodape => "Foram encontrados um total de #{@cargos.size.to_s} cargo(s)") do %>
+
+    <table class="ui-grid-content ui-widget-content">
+        <thead>
+            <tr>
+                <th align="center" class="ui-state-default">&nbsp;</th>
+                <th align="left" class="ui-state-default">Nome</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% @cargos.each do |cargo| %>
+            <tr>
+                <td style="width:60px" class="ui-widget-content">
+                  <%= button(:label=>'Editar', :class => 'btn_edit', :href => url_for(:action => 'form',  :id => cargo.id))%>
+                  <%= button(:label=>'Excluir', :class => 'btn_delete',:confirm => "Deseja excluir o cargo?" , :href => url_for(:action => 'delete', :id => cargo.id))%>
+                </td>
+                <td style="text-align: left" class="ui-widget-content"><%= link_to cargo.nome, {:action => 'view', :id => cargo.id} %></td>
+            </tr>
+        <% end %>
+        </tbody>
+    </table>
+
+<% end %>
+
